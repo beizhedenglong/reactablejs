@@ -1,0 +1,39 @@
+{
+  "name": "reactablejs",
+  "version": "0.0.1",
+  "main": "index.js",
+  "repository": "https://github.com/beizhedenglong/reactablejs.git",
+  "author": "Victor Wang(wang shaojie) <wang_shaojie@icloud.com>",
+  "license": "MIT",
+  "private": false,
+  "scripts": {
+    "start": "parcel ./examples/index.html -p 3000",
+    "demo": "parcel build ./examples/index.html -d docs --public-url ./",
+    "lint": "eslint ./src/**/**.js",
+    "build": "rimraf lib && babel src --out-dir lib",
+    "publish": "npm run build && npm publish"
+  },
+  "devDependencies": {
+    "babel-eslint": "^8.2.2",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-react": "^6.24.1",
+    "eslint": "^4.9.0",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-jsx-a11y": "^6.0.2",
+    "eslint-plugin-react": "^7.4.0",
+    "parcel-bundler": "^1.6.2",
+    "pre-commit": "^1.2.2",
+    "rimraf": "^2.6.2",
+    "styled-jsx": "^2.2.5"
+  },
+  "dependencies": {
+    "interactjs": "^1.4.0-alpha.1",
+    "prop-types": "^15.6.1",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "shortid": "^2.2.8"
+  }
+}
