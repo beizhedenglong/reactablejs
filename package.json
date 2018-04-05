@@ -1,7 +1,7 @@
 {
   "name": "reactablejs",
   "version": "0.0.1",
-  "main": "index.js",
+  "main": "lib/index.js",
   "repository": "https://github.com/beizhedenglong/reactablejs.git",
   "author": "Victor Wang(wang shaojie) <wang_shaojie@icloud.com>",
   "license": "MIT",
@@ -11,7 +11,8 @@
     "demo": "parcel build ./examples/index.html -d docs --public-url ./",
     "lint": "eslint ./src/**/**.js",
     "build": "rimraf lib && babel src --out-dir lib",
-    "publish": "npm run build && npm publish"
+    "publish": "npm run build && npm publish",
+    "beta": "npm run build && npm publish --tag beta"
   },
   "keywords": [
     "react",
