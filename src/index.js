@@ -1,10 +1,11 @@
-import interact from 'interactjs'
+import interact from 'interactjs/src/index'
 import React, { Component } from 'react'
 
 const options = [
   'draggable',
   'resizable',
   'gesturable',
+  'dropzone',
 ]
 const events = [
   // Interact Events
@@ -13,6 +14,7 @@ const events = [
   'DragInertiaStart',
   'DragEnd',
   'ResizeStart',
+  'ResizeMove',
   'ResizeInertiaStart',
   'ResizeEnd',
   'GestureStart',

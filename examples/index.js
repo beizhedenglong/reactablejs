@@ -1,4 +1,4 @@
-/* eslint-disable */
+/*eslint-disable*/
 import React from 'react'
 import ReactDOM from 'react-dom'
 import reactable from '../src/index'
@@ -6,17 +6,18 @@ import reactable from '../src/index'
 const Child = props => (
   <div
     style={{
-      color: props.color,
+      fontSize: '30px',
       position: 'relative',
-      left: props.coordinate.x,
-      top: props.coordinate.y,
-      width: props.coordinate.width,
-      height: props.coordinate.height,
-      background: 'grey'
+      left: props.x,
+      top: props.y,
+      width: props.width,
+      height: props.height,
+      background: 'grey',
+      transform: `rotate(${props.angle}deg)`,
     }}
     ref={props.getRef}
   >
-        hello
+      Reactable is a react hight-order component for interactjs.
   </div>
 )
 
@@ -24,31 +25,73 @@ const ReactableChild = reactable(Child)
 
 class App extends React.Component {
   state = {
-    x: 0, y: 0, width: 100, height: 100
+    x: 0,
+    y: 0,
+    width: 400,
+    height: 400,
+    angle: 0,
   }
   doubled = false
-  handleMove = (e) => {
+  handleDragMove = (e) => {
     const { dx, dy } = e
     this.setState(state => ({
       x: state.x + dx,
       y: state.y + dy,
     }))
   }
-  handleTap = (e) => {
+  handleDoubleTap = (e) => {
     this.setState(prev => ({
-      width: this.doubled ?  prev.width / 2:prev.width * 2,
-      height: this.doubled? prev.height / 2:prev.height * 2
+      width: this.doubled ? prev.width / 2 : prev.width * 2,
+      height: this.doubled ? prev.height / 2 : prev.height * 2,
     }))
     this.doubled = !this.doubled
   }
+  handleGestureMove = (e) => {
+    const { da } = e
+    this.setState(state => ({
+      angle: state.angle + da
+    }))
+  }
+  handleResizeMove = (e) => {
+    const { width, height } = e.rect
+    const { left, top } = e.deltaRect
+
+    
+    this.setState(state => {
+      return {
+        x: state.x + left,
+        y: state.y + top,
+        width,
+        height
+      }
+    })
+  }
   render() {
-    return (<ReactableChild
-      coordinate={this.state}
-      draggable={{}}
-      onDragMove={this.handleMove}
-      onDoubleTap={this.handleTap}
-      color="green"
-    />)
+    return (
+    <div>
+      <h1>Reactable Component </h1>
+      <h2>view source code: <a href="https://github.com/beizhedenglong/reactablejs">github</a></h2>
+      <h2>Playground:(interact with the grey div blew)</h2>
+      <ul>
+        <li>Drag to change position</li>
+        <li>Double Tap to change size</li>
+        <li>Drag edges to resize</li>
+        <li>Multi-touch:Rotate(on your mobile device) to change angle</li>
+      </ul>
+      <ReactableChild
+        draggable
+        gesturable
+        resizable={{
+          edges: { left: true, right: true, bottom: true, top: true }
+        }}
+        onDragMove={this.handleDragMove}
+        onDoubleTap={this.handleDoubleTap}
+        onGestureMove={this.handleGestureMove}
+        onResizeMove={this.handleResizeMove}
+        {...this.state}
+      />
+    </div> 
+    )
   }
 }
 

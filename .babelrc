@@ -5,7 +5,6 @@
   ],
   "plugins": [
     "transform-class-properties",
-    "transform-object-rest-spread",
-    "styled-jsx/babel"
+    "transform-object-rest-spread"
   ]
 }
