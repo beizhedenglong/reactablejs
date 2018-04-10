@@ -1,6 +1,6 @@
 {
   "name": "reactablejs",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "main": "lib/index.js",
   "repository": "https://github.com/beizhedenglong/reactablejs.git",
   "author": "Victor Wang(wang shaojie) <wang_shaojie@icloud.com>",
@@ -12,7 +12,7 @@
     "lint": "eslint ./src/**/**.js",
     "build": "rimraf lib && babel src --out-dir lib",
     "publish": "npm run build && npm publish",
-    "beta": "npm run build && npm publish --tag beta"
+    "test": "jest"
   },
   "keywords": [
     "react",
@@ -27,16 +27,20 @@
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
+    "enzyme": "^3.3.0",
+    "enzyme-adapter-react-16": "^1.1.1",
     "eslint": "^4.9.0",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-plugin-import": "^2.7.0",
     "eslint-plugin-jsx-a11y": "^6.0.2",
     "eslint-plugin-react": "^7.4.0",
+    "jest": "^22.4.3",
     "parcel-bundler": "^1.6.2",
     "pre-commit": "^1.2.2",
     "react": "^16.3.1",
     "react-dom": "^16.3.1",
     "react-inspector": "^2.2.2",
+    "react-test-renderer": "^16.3.1",
     "rimraf": "^2.6.2"
   },
   "dependencies": {

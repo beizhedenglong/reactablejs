@@ -24,3 +24,4 @@ jsconfig.json
 .cache
 examples
 docs
+__test__

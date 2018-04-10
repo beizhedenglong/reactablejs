@@ -37,10 +37,20 @@ const events = [
   'Hold',
 ]
 
+function getDisplayName(BaseComponent) {
+  return BaseComponent.displayName || BaseComponent.name || 'Component'
+}
+
 const reactable = BaseComponent =>
-  class extends Component {
+  class Reactable extends Component {
+    static displayName = `reactable(${getDisplayName(BaseComponent)})`
+
     // componentDidMount of parent is called after all his chidren is mounted
     componentDidMount() {
+      if (!this.node) {
+        console.error(' you should apply getRef props in the dom element') // eslint-disable-line
+        return
+      }
       this.interactable = interact(this.node)
       options.forEach((option) => {
         if (option in this.props) {
