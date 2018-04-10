@@ -1,6 +1,6 @@
 {
   "name": "reactablejs",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "main": "lib/index.js",
   "repository": "https://github.com/beizhedenglong/reactablejs.git",
   "author": "Victor Wang(wang shaojie) <wang_shaojie@icloud.com>",
