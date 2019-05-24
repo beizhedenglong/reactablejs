@@ -1,9 +1,20 @@
-/*eslint-disable*/
-import React from 'react'
-import ReactDOM from 'react-dom'
+import * as React from 'react'
+import * as ReactDOM from 'react-dom'
 import reactable from '../src/index'
 
-const Child = props => (
+interface State {
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+  angle: number;
+}
+
+interface ChildProps extends State {
+  getRef: React.RefObject<HTMLDivElement>;
+}
+
+const Child = (props: ChildProps) => (
   <div
     style={{
       fontSize: '30px',
@@ -23,7 +34,7 @@ const Child = props => (
 
 const ReactableChild = reactable(Child)
 
-class App extends React.Component {
+class App extends React.Component<{}, State> {
   state = {
     x: 0,
     y: 0,
@@ -55,8 +66,6 @@ class App extends React.Component {
   handleResizeMove = (e) => {
     const { width, height } = e.rect
     const { left, top } = e.deltaRect
-
-    
     this.setState(state => {
       return {
         x: state.x + left,
@@ -68,34 +77,35 @@ class App extends React.Component {
   }
   render() {
     return (
-    <div>
-      <h1>Reactable Component </h1>
-      <h2>view source code: <a href="https://github.com/beizhedenglong/reactablejs">github</a></h2>
-      <h2>Playground:(interact with the grey div blew)</h2>
-      <ul>
-        <li>Drag to change position</li>
-        <li>Double Tap to change size</li>
-        <li>Drag edges to resize</li>
-        <li>Multi-touch:Rotate(on your mobile device) to change angle</li>
-      </ul>
-      <ReactableChild
-        draggable
-        gesturable
-        resizable={{
-          edges: { left: true, right: true, bottom: true, top: true }
-        }}
-        onDragMove={this.handleDragMove}
-        onDoubleTap={this.handleDoubleTap}
-        onGestureMove={this.handleGestureMove}
-        onResizeMove={this.handleResizeMove}
-        {...this.state}
-      />
-    </div> 
+      <div>
+        <h1>Reactable Component </h1>
+        <h2>view source code: <a href="https://github.com/beizhedenglong/reactablejs">github</a></h2>
+        <h2>Playground:(interact with the grey div blew)</h2>
+        <ul>
+          <li>Drag to change position</li>
+          <li>Double Tap to change size</li>
+          <li>Drag edges to resize</li>
+          <li>Multi-touch:Rotate(on your mobile device) to change angle</li>
+        </ul>
+        <ReactableChild
+          draggable
+          gesturable
+          resizable={{
+            edges: { left: true, right: true, bottom: true, top: true },
+          }}
+          onDragMove={this.handleDragMove}
+          onDoubleTap={this.handleDoubleTap}
+          onGestureMove={this.handleGestureMove}
+          onResizeMove={this.handleResizeMove}
+          {...this.state}
+        />
+      </div> 
     )
   }
 }
 
+
 ReactDOM.render(
   <App />,
-  document.getElementById('root'),
+  document.getElementById("root")
 )
