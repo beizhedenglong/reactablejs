@@ -108,7 +108,7 @@ const reactable = <BaseProps extends InjectedProps>(
     componentWillUnmount() {
       this.interactable.unset()
     }
-    baseProps = (props) => {
+    baseProps(props) {
       const baseProps = { ...props }
       options.forEach(option => delete baseProps[option])
       events.forEach(event => delete baseProps[`on${event}`])
