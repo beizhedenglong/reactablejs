@@ -1,6 +1,6 @@
 {
   "name": "reactablejs",
-  "version": "0.0.3",
+  "version": "0.1.0",
   "source": "src/index.tsx",
   "main": "dist/index.js",
   "umd:main": "dist/index.umd.js",
