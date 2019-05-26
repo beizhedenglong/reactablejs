@@ -4,7 +4,7 @@
   "source": "src/index.tsx",
   "main": "dist/index.js",
   "umd:main": "dist/index.umd.js",
-  "module": "dist/index.mjs",
+  "module": "dist/index.m.js",
   "types": "dist/src/index.d.ts",
   "repository": "https://github.com/beizhedenglong/reactablejs.git",
   "author": "Victor Wang(wang shaojie) <wang_shaojie@icloud.com>",
