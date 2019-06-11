@@ -13,7 +13,7 @@
   "scripts": {
     "start": "parcel ./examples/index.html -p 3000 --out-dir build",
     "demo": "parcel build ./examples/index.html -d docs --public-url ./",
-    "build": "microbundle --jsx react",
+    "build": "microbundle --no-compress --jsx react",
     "test": "jest"
   },
   "keywords": [
