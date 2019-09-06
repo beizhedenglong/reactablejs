@@ -65,7 +65,5 @@
     "interactjs": "^1.6.1",
     "react": "^16.8.6"
   },
-  "dependencies": {
-    "utility-types": "^3.7.0"
-  }
+  "dependencies": {}
 }
