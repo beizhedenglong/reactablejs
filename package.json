@@ -11,10 +11,13 @@
   "license": "MIT",
   "private": false,
   "scripts": {
-    "start": "parcel ./examples/index.html -p 3000 --out-dir build",
+    "start": "yarn storybook",
     "demo": "parcel build ./examples/index.html -d docs --public-url ./",
     "build": "microbundle --no-compress --jsx react",
-    "test": "jest"
+    "test": "jest",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook",
+    "deploy-storybook": "storybook-to-ghpages"
   },
   "keywords": [
     "react",
@@ -24,33 +27,45 @@
     "resize"
   ],
   "devDependencies": {
+    "@storybook/addon-actions": "^5.1.11",
+    "@storybook/addon-links": "^5.1.11",
+    "@storybook/addon-storysource": "^5.1.11",
+    "@storybook/addons": "^5.1.11",
+    "@storybook/preset-typescript": "^1.1.0",
+    "@storybook/react": "^5.1.11",
+    "@storybook/storybook-deployer": "^2.8.1",
     "@types/jest": "^24.0.13",
     "@types/react": "^16.8.18",
     "@types/react-dom": "^16.8.4",
+    "@types/storybook__react": "^4.0.2",
     "@typescript-eslint/eslint-plugin": "^1.9.0",
     "@typescript-eslint/parser": "^1.9.0",
     "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.5",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
     "eslint": "^5.16.0",
     "eslint-plugin-react": "^7.13.0",
+    "interactjs": "^1.6.1",
     "jest": "^24.8.0",
     "microbundle": "^0.11.0",
     "parcel-bundler": "^1.6.2",
     "react": "^16.8.6",
+    "react-docgen-typescript-loader": "^3.2.0",
     "react-dom": "^16.8.6",
     "react-testing-library": "^7.0.1",
     "rimraf": "^2.6.2",
     "ts-jest": "^24.0.2",
-    "typescript": "^3.4.5"
+    "ts-loader": "^6.0.4",
+    "typescript": "^3.6.2"
   },
   "peerDependencies": {
+    "interactjs": "^1.6.1",
     "react": "^16.8.6"
   },
   "dependencies": {
-    "interactjs": "^1.4.2",
     "utility-types": "^3.7.0"
   }
 }
