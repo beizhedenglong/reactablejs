@@ -1,4 +1,4 @@
-# reactablejs = reactjs + interactjs
+# Reactablejs = Reactjs + Interactjs
 
 A react high-order component for [interactjs](https://github.com/taye/interact.js).
 
@@ -7,6 +7,9 @@ Current supported features:
   - resize
   - drop
   - multi-touch
+  - restrict
+  - snap
+  - modifiers
 
 Current supported props:
   - options: `draggable` `resizable` `gesturable` `dropzone`.
@@ -16,8 +19,9 @@ Current supported props:
 **api details, visit [interactjs' docs](http://interactjs.io/docs/)**
 
 ## Installation
+> `reactablejs` use `interactjs` as `peerDependencies`, you should also install interactjs.
 ```
-npm install reactablejs --save
+npm install reactablejs interactjs --save
 ```
 
 ## Usage
@@ -31,11 +35,10 @@ const MyComponent = (props) => {
   </div>
 }
 
-// MyComponent will get getRef in props, put getRef to the element you want interact, then you can use all options and event handlers on Reactable
+// MyComponent will receive getRef in props, put getRef to the element you want interact, then you can use all options and event handlers on Reactable
 
 const Reactable = reactable(MyComponent) 
 
 ```
 ## Example
-- [online demo](https://beizhedenglong.github.io/reactablejs/)
-- [demo source code](https://github.com/beizhedenglong/reactablejs/tree/master/examples)
+- visit [storybooks](https://beizhedenglong.github.io/reactablejs/)

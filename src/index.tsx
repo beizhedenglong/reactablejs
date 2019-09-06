@@ -1,6 +1,5 @@
 import interact from 'interactjs'
 import * as React from 'react'
-import { Subtract } from "utility-types"
 
 const options = [
   'draggable',
@@ -38,13 +37,13 @@ const events = [
   'Hold',
 ]
 
-const getDisplayName = (BaseComponent: React.ComponentType) =>
+const getDisplayName = (BaseComponent: React.ComponentType<any>) =>
   BaseComponent.displayName || 'Component'
 
-interface InjectedProps {
-  getRef: React.RefObject<HTMLElement>;
+export interface InjectedProps {
+  getRef: React.Ref<any> | React.LegacyRef<any>;
 }
-interface InteractProps {
+export interface InteractProps {
   draggable?: Interact.DraggableOptions | boolean;
   resizable?: Interact.ResizableOptions | boolean;
   gesturable?: Interact.ResizableOptions | boolean;
@@ -74,16 +73,16 @@ interface InteractProps {
   onHold?: Interact.ListenersArg;
 }
 
-const reactable = <BaseProps extends InjectedProps>(
-  BaseComponent: React.ComponentType<BaseProps>
+const reactable = <RefType, BaseProps extends object>(
+  BaseComponent: React.ComponentType<BaseProps & InjectedProps>
 ) => {
 
-  type HocProps = Subtract<BaseProps, InjectedProps> & InteractProps
+  type HocProps = Omit<BaseProps, keyof InjectedProps> & InteractProps
 
   return class Reactable extends React.Component<HocProps> {
     static displayName = `reactable(${getDisplayName(BaseComponent)})`
     interactable: Interact.Interactable
-    node = React.createRef<any>()
+    node = React.createRef<RefType>()
 
     // componentDidMount of parent is called after all his children is mounted
     componentDidMount() {
@@ -91,7 +90,7 @@ const reactable = <BaseProps extends InjectedProps>(
         console.error(' you should apply getRef props in the dom element') // eslint-disable-line
         return
       }
-      this.interactable = interact(this.node.current)
+      this.interactable = interact(this.node.current as any)
       options.forEach((option) => {
         if (option in this.props) {
           this.interactable[option](this.props[option])
