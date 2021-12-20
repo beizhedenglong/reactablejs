@@ -71,7 +71,7 @@ export interface InteractProps {
   onHold?: Interact.ListenersArg;
 }
 
-const reactable = <BaseProps, >(
+const reactable = <BaseProps,>(
   BaseComponent: React.ComponentType<BaseProps>
 ): React.FC<Omit<BaseProps, keyof InjectedProps> & InteractProps> => (props) => {
   const interactable = useRef<Interact.Interactable>(null)
@@ -96,7 +96,8 @@ const reactable = <BaseProps, >(
         }
       })
     }
-  }, [props])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []) // "props" should be added to the update array. However, this causes infinite rerenders.
 
   //Set handlers
   useEffect(() => {
