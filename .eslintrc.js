@@ -1,9 +1,9 @@
 module.exports = {
   parser: '@typescript-eslint/parser',
   extends: [
-    'plugin:react/recommended',  // Uses the recommended rules from @eslint-plugin-react
-    'plugin:@typescript-eslint/recommended',  // Uses the recommended rules from @typescript-eslint/eslint-plugin
-  ],
+    "plugin:react/recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:storybook/recommended"],
   parserOptions: {
     ecmaVersion: 13,
     sourceType: 'module',
@@ -36,7 +36,7 @@ module.exports = {
   },
   settings: {
     react: {
-      version: 'detect',  // Tells eslint-plugin-react to automatically detect the version of React to use
+      version: 'detect', // Tells eslint-plugin-react to automatically detect the version of React to use
     },
   },
 }
