@@ -1,5 +1,6 @@
 import interact from 'interactjs'
 import * as React from 'react'
+import { useEffect, useRef } from 'react'
 
 const options = [
   'draggable',
@@ -37,11 +38,8 @@ const events = [
   'Hold',
 ]
 
-const getDisplayName = (BaseComponent: React.ComponentType<any>) =>
-  BaseComponent.displayName || 'Component'
-
 export interface InjectedProps {
-  getRef: React.Ref<any> | React.LegacyRef<any>;
+  getRef: React.Ref<string> | React.LegacyRef<string>;
 }
 export interface InteractProps {
   draggable?: Interact.DraggableOptions | boolean;
@@ -73,53 +71,65 @@ export interface InteractProps {
   onHold?: Interact.ListenersArg;
 }
 
-const reactable = <RefType, BaseProps extends object>(
-  BaseComponent: React.ComponentType<BaseProps & InjectedProps>
-) => {
+const reactable = <BaseProps, >(
+  BaseComponent: React.ComponentType<BaseProps>
+): React.FC<Omit<BaseProps, keyof InjectedProps> & InteractProps> => (props) => {
+  const interactable = useRef<Interact.Interactable>(null)
+  const node = useRef()
 
-  type HocProps = Omit<BaseProps, keyof InjectedProps> & InteractProps
+  //Create interactable
+  useEffect(() => {
+    if (!node.current) {
+      console.error(' you should apply getRef props in the dom element') // eslint-disable-line
+      return
+    }
+    interactable.current = interact(node.current)
+    return () => interactable.current.unset()
+  }, [])
 
-  return class Reactable extends React.Component<HocProps> {
-    static displayName = `reactable(${getDisplayName(BaseComponent)})`
-    interactable: Interact.Interactable
-    node = React.createRef<RefType>()
-
-    // componentDidMount of parent is called after all his children is mounted
-    componentDidMount() {
-      if (!this.node.current) {
-        console.error(' you should apply getRef props in the dom element') // eslint-disable-line
-        return
-      }
-      this.interactable = interact(this.node.current as any)
+  //Set options
+  useEffect(() => {
+    if (interactable.current) {
       options.forEach((option) => {
-        if (option in this.props) {
-          this.interactable[option](this.props[option])
+        if (option in props) {
+          interactable.current[option](props[option])
         }
       })
+    }
+  }, [props])
+
+  //Set handlers
+  useEffect(() => {
+    if (interactable.current) {
       events.forEach((event) => {
-        const handler = this.props[`on${event}`]
+        const handler = props[`on${event}`]
         if (typeof handler === 'function') {
-          this.interactable
+          interactable.current
             .on(event.toLowerCase(), handler)
         }
       })
+      return () => {
+        events.forEach((event) => {
+          const handler = props[`on${event}`]
+          if (typeof handler === 'function') {
+            interactable.current
+              .off(event.toLowerCase(), handler)
+          }
+        })
+      }
     }
-    componentWillUnmount() {
-      this.interactable.unset()
-    }
-    baseProps(props) {
-      const baseProps = { ...props }
-      options.forEach(option => delete baseProps[option])
-      events.forEach(event => delete baseProps[`on${event}`])
-      return baseProps
-    }
-    render() {
-      return (<BaseComponent
-        {...this.baseProps(this.props)}
-        getRef={this.node}
-      />)
-    }
+  }, [props])
+
+  const baseProps = (props) => {
+    const baseProps = { ...props }
+    options.forEach(option => delete baseProps[option])
+    events.forEach(event => delete baseProps[`on${event}`])
+    return baseProps
   }
 
+  return <BaseComponent
+    {...baseProps(props)}
+    getRef={node}
+  />
 }
 export default reactable
